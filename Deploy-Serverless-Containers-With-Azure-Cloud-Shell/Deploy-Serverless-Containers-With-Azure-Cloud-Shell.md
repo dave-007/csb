@@ -6,19 +6,45 @@
 
 ### Introduction
 
-Ok, alright, enough about Azure, .Net Core, docker, containers, serverless... my head is exploding!
+Ok, alright, enough about Azure, PowerShell, CLI, .Net Core, docker, containers, serverless... my head is exploding!
 Can someone just walk me through all of these things in a single step by step tutorial?
 
 #### NOTE FROM DAVE: This is an early draft for review by CloudSkills builders only, please don't share outside the group without discussing first. I think I have a lot to add to make this as clear as possible, including the following
+
+### TODO
 
 - A big picture overview diagram mapping out what we're doing here.
 - Glossary of terms with links for more details.
 - Consistency in naming things.
 - Smooth way to handle 'expired token' or other causes of lost Azure Cloud Shell session.
 - Decision whether to break into parts to make it more digestible
+- Create settings using `code mysettings.ps1`, paste and edit, so no code editor needed.
 - Move $tags up in tutorial
 - YOUR TESTING FOR TECHNICAL CORRECTNESS AND CLARITY
 - YOUR FEEDBACK, a pull request or Slack message.
+
+### Multi-Part Outline for this topic
+
+- Part 1 - Getting started, provision ACR
+  - Azure Cloud Shell login
+  - Bearings in Cloud Shell Azure
+  - Use Code Editor to build settings file
+    - Create settings using `code mysettings.ps1`, paste and edit, so no code editor needed.
+  - Deploy ACR via ARM Template
+- Part 2 - Build .Net Core Application, Dockerize and Push to ACR
+  - dotnet new..
+  - OR
+  - git clone
+  - Use Code Editor to build DOCKERFILE
+    - Get into details of docker commands
+      - 
+  - az acr build
+- Part 3 - Deploy ACR/Repo/Image/Tag container to ACI
+  - Locate full path to image
+  - Build params hash
+  - Deploy to ACI
+  - Review debug, logs, web app
+  - Cleanup
 
 ### Terminology / Glossary
 
@@ -29,8 +55,8 @@ TBD
 - Use several **Azure Cloud Shell** cloud native tools to build and deploy an application as a serverless container.
 - Deploy infrastructure as code using a quickstart **ARM Template**.
 - Create an **ASP.Net Core** application with no development environment setup.
-- Use the **Azure Cloud Shell**'s code editor to create a docker file.
-- Use **AZure CLI** *az acr build* command to build and push a docker image to your **Azure Container Registry** with no tooling setup.
+- Use the **Azure Cloud Shell Editor** to create a docker file.
+- Use **Azure CLI** *az acr build* command to build and push a docker image to your **Azure Container Registry** with no tooling setup.
 - Deploy a Docker image as a serverless container to **Azure Container Instances** with no infrastructure setup.
 - Use **Azure Cloud Shell** with **Azure PowerShell** and **Azure CLI** command line interface as powerful tools in infrastructure and application development and deployment.
 
@@ -38,7 +64,7 @@ TBD
 
 - Perform all steps using [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview)
 - Use [Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-3.4.0) to deploy an [ARM Quickstart Template](https://azure.microsoft.com/en-us/resources/templates/) to create an [Azure Container Registry (ACR)](https://azure.microsoft.com/en-us/services/container-registry/)
-- Use [dotnet Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x) to create a new asp.net core web application
+- Use [.Net] Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x) to create a new asp.net core web application
 - Use [Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor) to create a Docker file
 - Use [Azure CLI](https://github.com/Azure/azure-cli) to build a Docker image and push it as an image to a repository in your ACR
 - Use [Azure PowerShell](https://docs.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-3.4.0) to deploy your image as an [Azure Container Instance](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-overview) to run in a Serverless fashion.
@@ -171,7 +197,7 @@ Paste the next 3 lines to create and compile your new web app, then use `ls` to 
 ```ps
 dotnet new webapp -o mywebapp
 cd mywebapp
-dotnet publish -c Release
+dotnet publish -c Release  # TODO needed, now that docker is doing?
 
 ls ./bin/Release/netcoreapp2.2/publish/
 pwd
@@ -181,13 +207,13 @@ pwd
 
 ## Step 4 - Create a Docker File
 
-You can type `cls` to clear the screen, then type `code DOCKERFILE` to launce the cloud shell's code editor. Use the editor to paste in the content of the dockerfile below.
+You can type `cls` to clear the screen, then type `code DOCKERFILE` to launce the cloud shell editor. Use the editor to paste in the content of the dockerfile below.
 
 ```ps
 code DOCKERFILE
 ```
 
- Paste the following code block to the DOCKERFILE **using *Control-V* instead of right-click**, then click the ellipsis **(...)** in upper right corner of the code editor to save, then close code editor.
+ Paste the following code block to the DOCKERFILE **using *Control-V* instead of right-click**, then click the ellipsis **(...)** in upper right corner of the cloud shell editor to save, then close editor.
 
 ```ps
 
@@ -334,4 +360,4 @@ You have used **Azure Cloud Shell** on a whirlwind tour of powerful tools and fe
 - Deploy that image to **Azure Container Instances**
 
 
-Along the way you explored features of **Azure Cloud Shell** including **Azure PowerShell** and **Azure CLI**, **Azure Resource Manager**templates, the Cloud Shell Code Editor, and the dotnet CLI.
+Along the way you explored features of **Azure Cloud Shell** including **Azure PowerShell** and **Azure CLI**, **Azure Resource Manager**templates, the Cloud Shell Code Editor, and the .Net Core CLI.
