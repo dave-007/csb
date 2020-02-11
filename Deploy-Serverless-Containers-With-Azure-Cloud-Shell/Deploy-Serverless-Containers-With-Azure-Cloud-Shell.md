@@ -26,7 +26,7 @@ This tutorial introduces you to these tools very rapidly, and toward a very usef
 
 - Use the **[Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor)** to create a PowerShell script that sets variables for the tutorial.
 - Deploy infrastructure as code using a Quickstart **[ARM Template](https://azure.microsoft.com/en-us/resources/templates/)**.
-- Create an **ASP.Net Core** application with the **[.Net Core CLI (dotnet new)](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x)** with no development environment setup.
+- Create an **ASP.Net Core** application with the [**.Net Core CLI**](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x)** with no development environment setup.
 - Use the **[Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor)** to create a docker file.
 - Use **[Azure CLI](https://github.com/Azure/azure-cli)** *az acr build* command to build and push a docker image to your **[Azure Container Registry (ACR)](https://azure.microsoft.com/en-us/services/container-registry/)** with no tooling setup.
 - Deploy a Docker image as a serverless container to **[Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-overview)** with no infrastructure setup.
@@ -120,7 +120,7 @@ Test-AzContainerRegistryNameAvailability -Name $myRegistryName
 > run it again.
 
 
-With your registry name verified as unique, review and run the code below, which will set`$containerRegistryTemplateUrl` to the URL for one of the quickstart [Azure Quickstart Templates Templates](https://azure.microsoft.com/en-us/resources/templates/), also called **Azure Resource Manager Templates**, to define your **Azure Container Registry** resource. Then you define `$containerRegistryParams` as a [hash table](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-7) to pass the parameters the template needs. Then you execute `New-AZResourceGroupDeployment` to deploy the ARM template.
+With your registry name verified as unique, review and run the code below, which will set`$containerRegistryTemplateUrl` to the URL for one of the Quickstart [**Azure Resource Manager Templates**](https://azure.microsoft.com/en-us/resources/templates/), to define your **Azure Container Registry** resource. Then you define `$containerRegistryParams` as a [hash table](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-7) to pass the parameters the template needs. Then you execute `New-AZResourceGroupDeployment` to deploy the ARM template.
 
 Paste the code block below to deploy.
 
@@ -144,9 +144,6 @@ If all is well, the `ProvisioningState` value should display `Succeeded`
 
 
 Next you use the `Get-AZContainerRegistry` command to store your **Azure Container Registry** (ACR) information in a variable to refer to it later in the tutorial.
-
-> ### @ icon-info-circle 
-> **Note:** This command assumes a single registry exists, otherwise it uses the first one it finds.
 
 ```ps
 $myACR = Get-AzContainerRegistry -ResourceGroupName $myRGName
@@ -218,11 +215,11 @@ ENTRYPOINT ["dotnet", "mywebapp.dll"]
 
 ```
 
-![Using Code Editor](https://i.imgur.com/qVYftbJ.gif)> ### @ icon-info-circle
+![Using Code Editor](https://i.imgur.com/qVYftbJ.gif)
 
 > ### @ icon-info-circle Docker Syntax
 > **Note:** The dockerfile commands describe how to build and run this application as a container.
-> *Details of docker syntax is another topic for a future tutorial.*
+> *Docker syntax is another topic for a future tutorial.*
 
 ## Step 5 - Build and Push a Docker Image to Azure Container Registry
 
