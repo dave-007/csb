@@ -75,7 +75,7 @@ Use the editor to paste in the content of the powershell script below **using *C
 # Your personal settings, customize these using lowercase letters and numbers
 $myLocationName = 'eastus2'                 # An Azure region close to you, 'Get-AzLocation' to list them all
 $myRGName       = 'containerdemo-rg'        # Resource group to contain this demo
-$myWebAppName   = 'davewebappdocker0123'    # GLOBALLY UNIQUE name for your web app
+$myWebAppName   = 'davewebappdocker0123'    # Name for your web app
 $myRegistryName = 'daveregistry0123'        # GLOBALLY UNIQUE name for your container registry
 $myDNSName      = 'daveawesomedockerapp0123'# GLOBALLY UNIQUE dns name, will be prepended to .azurecontainer.io
 
@@ -87,8 +87,8 @@ Now **[dot source](https://ss64.com/ps/source.html)** the script by running `. .
 
 
 > ### @ icon-warning If Cloud Shell session is interrupted, restart session and re-run this script line.
-> **Warning:** The success of the tutorial depends on the variables above. If for some reason your
-> **Azure Cloud Shell** session is interrupted, (perhaps with an **access token expiry error**),
+> **Warning:** The success of the tutorial depends on the variables above. If [for some reason](https://docs.microsoft.com/en-us/azure/cloud-shell/limitations) your
+> **Azure Cloud Shell** session is interrupted, (perhaps with an **[access token expiry error](https://github.com/Azure/azure-powershell/issues/6585)**),
 > You may need to restart your session with the **Restart Cloud Shell** button at top of shell window.
 > Once you resume your session, run `cd ~\clouddrive`, then  `. ./mySettings.ps1` again.
 > This wil ensure you can continue the tutorial.
@@ -234,12 +234,12 @@ az acr build --registry $myACR.Name --image mywebapp:v1 .
 ![Result of az acr build](https://i.imgur.com/8aQNgsD.gif)
 
 > ### @ icon-warning 
-> **Warning:** If you get an error on this step, possibly your Azure Cloud Shell session was interrupted,
+> **Warning:** If you get an error on this step, [possibly your Azure Cloud Shell session was interrupted](https://docs.microsoft.com/en-us/azure/cloud-shell/limitations),
 > you can repeat the code from above to define variables including $myACR then try it again:
 
 ```ps
 
-# If Cloud Shell Session was interrupted, run to redefine your variables
+# If Cloud Shell Session [was interrupted](https://github.com/Azure/azure-powershell/issues/4695), run to redefine your variables
 cd ~/clouddrive
 . ./mySettings.ps1
 $myACR = Get-AzContainerRegistry -ResourceGroupName $myRGName
