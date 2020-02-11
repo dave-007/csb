@@ -16,7 +16,7 @@
 
 ## Introduction
 
-Keeping up with cloud technology is a continual challenge that requires continuous learning by cloud practitioners. As we seek to stay current with the evolution of new cloud technologies, we must choose which tools to invest in and which to ignore, choosing most powerful and flexible tools available to maximize our effectiveness and time investment.
+Keeping up with cloud technology is a continual challenge that requires continuous learning by cloud builders. As we seek to stay current with the evolution of new cloud technologies, we must choose which tools to invest in and which to ignore, choosing most powerful and flexible tools available to maximize our effectiveness and time investment.
 
 **Azure Cloud Shell** is one such powerful tool. Learn Azure Cloud Shell and you unlock the full capability of the Azure cloud, with tools built in including Code Editor, Azure PowerShell and CLI, .Net Core and Docker.
 
@@ -341,7 +341,7 @@ Get-AzContainerInstanceLog  -ResourceGroupName $myRGName -ContainerGroupName $my
 The resources for this tutorial are very cost effective. Even so, it's a good idea to clean up once completed.
 
 ```ps
-Remove-AzContainerGroup -Name $myCGName -ResourceGroupName $myRGName -Debug -Force
+Remove-AzResourceGroup -ResourceGroupName $myRGName -Force
 ```
 
 ## Conclusion
@@ -354,6 +354,6 @@ You have:
 - Pushed that container to a repository image in your private **Azure Container Registry**
 - Deployed that image to **Azure Container Instances**
 
-Along the way you explored features of **Azure Cloud Shell** including **Azure PowerShell** and **Azure CLI**, **Azure Resource Manager**templates, the **Cloud Shell Code Editor**, and the **.Net Core CLI.**
+Along the way you explored features of **Azure Cloud Shell** including **Azure PowerShell** and **Azure CLI**, **Azure Resource Manager** templates, the **Cloud Shell Code Editor**, and the **.Net Core CLI.**
 
-I hope this tutorial encourages you to explore Azure with the Cloud Shell, and makes you a more effective cloud practitioner!
+I hope this tutorial encourages you to explore Azure with the Cloud Shell, and makes you a more effective cloud builder!
