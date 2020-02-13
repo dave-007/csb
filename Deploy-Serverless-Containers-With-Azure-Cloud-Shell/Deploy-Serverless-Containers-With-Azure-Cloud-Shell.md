@@ -326,6 +326,8 @@ The `FQDN` property is the *Fully Qualified Domain Name* of your containerized a
 Write-Output " Paste    $($newACG.FQDN)  into your favorite web browser"
 ```
 
+*Browse your newly deployed Azure serverless Docker containerized ASP.Net Core web application!*
+
 ![Browse WebApp](./media/step-7-browser.png)
 
 
