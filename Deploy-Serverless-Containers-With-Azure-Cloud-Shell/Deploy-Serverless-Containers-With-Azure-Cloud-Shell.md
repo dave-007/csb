@@ -38,7 +38,6 @@ in order to follow this guide, you will need:
 
 - An active Azure subscription
 
-
 ## Step 1 - Get Into Azure Cloud Shell & Editor
 
 Log into your Azure account at [portal.azure.com](https://portal.azure.com), then click the **Cloud Shell** icon in the top nav bar to enter the **Azure Cloud Shell**. If this is your first time in the shell you will need to create your cloud drive storage. First time users may refer to [David Lamb's Azure Cloud Shell tutorial (1.5 min)](https://www.youtube.com/watch?v=HBKm1-_kWKg) for guidance. Choose **PowerShell** as your shell type on the dropdown to the top left.
@@ -47,16 +46,18 @@ During the tutorial you may want to maximize the cloud shell window using the ma
 
 ![Cloud Shell maximize/restore button](./media/step-1-maximize-button.png)
 
-Before continuing, note the prompt for Azure Cloud Shell, `PS Azure:\>` . You can imagine this as the root directory of a file server, but instead of files, it holds hierarchy of *all your Azure resources*. You can type `Get-ChildItem` to see your subscription(s), and use `Set-Location <TAB>` to begin navigating that hierarchy. *But that is the subject of another tutorial.*
+Before continuing, note the prompt for Azure Cloud Shell, `PS Azure:\>` , indicates your location as `Azure:\`. You can imagine this as the root directory of a file server, but instead of files, it holds hierarchy of *all your Azure resources*. You can type `Get-ChildItem` to see your subscription(s), and use `Set-Location <TAB>` to begin navigating that hierarchy. *But that is the subject of another tutorial.*
 
-Instead, type `cd ~\clouddrive` (that starts with the tilde character (~) at the top right of your keyboard) to navigate to your clouddrive, and type `pwd` (an alias of `Get-ChildItem`) to see your current location in the drive.
+If you try to to the code editor to save files in this starting location of `Azure:\`, you will get an error. Instead, type `cd ~\clouddrive` (that starts with the tilde character (~) at the top right of your keyboard, a symbol for your home directory) to navigate to your clouddrive, and type `pwd` (an alias of `Get-ChildItem`) to see your current location in the drive.
 
 ```ps
 cd ~\clouddrive
 pwd
 ```
 
-Now type `code mySettings.ps1` to launch the cloud shell editor and edit the new PowerShell script.
+![Ccd clouddrive](./media/step-1-cd-clouddrive.gif)
+
+Now type `code mySettings.ps1` to launch the cloud shell editor in your `~\clouddrive` folder and edit the new PowerShell script.
 
 ```ps
 code mySettings.ps1
@@ -64,7 +65,7 @@ code mySettings.ps1
 
 Use the editor to paste in the content of the powershell script below **using *Control-V* instead of right-click**. Customize the values, then click the ellipsis **(...)** in the upper right corner of the cloud shell editor to save, then close editor.
 
-> ### @ icon-info-circle Globally Unique Names
+> ### **NOTE:** Globally Unique Names
 > Naming things in Azure can be tricky, with different naming rules for different types of resources. 
 > For simplicity, *stick with lowercase letters and numbers.*
 > Certain values must be GLOBALLY UNIQUE, like registry names and domain names,
@@ -80,16 +81,15 @@ $myRegistryName = 'daveregistry0123'        # GLOBALLY UNIQUE name for your cont
 $myDNSName      = 'daveawesomedockerapp0123'# GLOBALLY UNIQUE dns name, will be prepended to .azurecontainer.io
 ```
 
-![Cloud shell Code Editor mySettings](./media/step-1-edit-mysettings-file.gif)
-
 Now **[dot source](https://ss64.com/ps/source.html)** the script by running `. ./mySettings.ps1`. This will define the variables you'll need for this tutorial in this PowerShell session.
 
+![Cloud shell Code Editor mySettings](./media/step-1-edit-mysettings-file.gif)
 
-> ### @ icon-warning If Cloud Shell session is interrupted, restart the session and re-run this script line.
-> **Warning:** The success of the tutorial depends on the variables above. If for some reason your
-> **Azure Cloud Shell** session is interrupted, (perhaps with an **access token expiry error**),
+> ### **WARNING:** If Cloud Shell session is interrupted, restart the session and re-run this script line.
+> The success of the tutorial depends on the variables above. If for some reason your
+> **Azure Cloud Shell** [session is interrupted](https://docs.microsoft.com/en-us/azure/cloud-shell/limitations#system-state-and-persistence), (perhaps with an **access token expiry error**, or **unauthorized error**),
 > You may need to restart your session with the **Restart Cloud Shell** button at top of shell window.
-> Once you resume your session, run `cd ~\clouddrive`, then  `. ./mySettings.ps1` again.
+> Once you resume your session, remember to run `cd ~\clouddrive` since you can't save files in the `Azure:\` location, then  `. ./mySettings.ps1` again.
 > This will ensure you can continue the tutorial.
 > 
 > ![Restart Cloud Shell](./media/step-1-restart-cloud-shell-button.png)
@@ -108,13 +108,15 @@ Now you deploy your **Azure Container Registry** (ACR), once you have tested the
 Test-AzContainerRegistryNameAvailability -Name $myRegistryName
 ```
 
-> ### @ icon-warning Ensure unique name for your Azure Container Registry
+> ### **WARNING:** Ensure unique name for your Azure Container Registry
 > If _NameAvailable_ is not _True_ in the result, redefine your registry name by running the command
 > `$myRegistryName = 'mynewregname001'` , then press **UP-Arrow** twice, scrolling through command
 > history to display the `Test-AzContainerRegistryNameAvailability` command, then press **enter** to
 > run it again.
 
-With your registry name verified as unique, review and run the code below, which will set`$containerRegistryTemplateUrl` to the URL for one of the Quickstart [**Azure Resource Manager Templates**](https://azure.microsoft.com/en-us/resources/templates/), to define your **Azure Container Registry** resource. Then you define `$containerRegistryParams` as a [hash table](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-7) to pass the parameters the template needs. Then you execute `New-AZResourceGroupDeployment` to deploy the ARM template.
+With your registry name verified as unique, you deploy a Quickstart **[Azure Resource Manager Template (ARM Template)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview)** from Microsoft's GitHub repository to create your **Azure Container Registry**. This ARM Template is a small JSON file that describes the resource to deploy, and you can [view the JSON for the ARM Template you will use here.](https://raw.githubusercontent.com/microsoft/devops-project-samples/master/dotnet/aspnetcore/kubernetes/ArmTemplates/containerRegistry-template.json).  
+
+Review and run the code below, which will set`$containerRegistryTemplateUrl` to the URL for this ARM Template that will define your **Azure Container Registry** resource. Then you define `$containerRegistryParams` as a [hash table](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-7) to pass the parameters the template needs. Then you execute `New-AZResourceGroupDeployment` to deploy the ARM template.
 
 Paste the code block below to deploy.
 
@@ -132,8 +134,8 @@ If all is well, the `ProvisioningState` value should display `Succeeded`
 
 ![result of ARM template deployment](./media/step-2-arm-result.png)
 
-> ### @ icon-info-circle Troubleshoot using Activity Log
-> **Note:** If at first you don't succeed, review the **Activity Log** 
+> ### **NOTE:** Troubleshoot using Activity Log
+> If at first you don't succeed, review the **Activity Log** 
 > under **Notifications** in the portal, see ![Troubleshooting ARM template deployments](./media/step-2-activity-log.png)
 
 Next you use the `Get-AZContainerRegistry` command to store your **Azure Container Registry** (ACR) information in a variable to refer to it later in the tutorial.
@@ -165,8 +167,8 @@ cd docker-working
 
 Now you will build a new .Net Core web application using the `dotnet` command line tool.
 
-> ### @ icon-info-circle
-> **Note:** Alternately, instead of creating a new application, you could use `git clone` 
+> ### **NOTE:** Alternately build an existing Asp.Net Core project!
+> Alternately, instead of creating a new application, you could use `git clone` 
 > to work with an existing application in GitHub. *This is another topic for a future tutorial.*
 
 Paste the next 3 lines to create and compile your new web app, then use `ls` to inspect the contents of the published folder.
@@ -208,13 +210,17 @@ ENTRYPOINT ["dotnet", "mywebapp.dll"]
 
 ![Using Code Editor](./media/step-4-code-dockerfile-paste.gif)
 
-> ### @ icon-info-circle Docker Syntax
-> **Note:** The dockerfile commands describe how to build and run the .Net Core web application created in Step 3 as a container.
+> ### **NOTE:** Docker Syntax
+> The dockerfile commands describe how to build and run the .Net Core web application created in Step 3 as a container.
 > *Docker syntax is another topic for a future tutorial.*
 
 ## Step 5 - Build and Push a Docker Image to Azure Container Registry
 
-First, run `pwd` to ensure you're in the root of the webapp folder, then use the [Azure CLI command `az acr build`](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az-acr-build) shown below (including the period at the end) to build the docker image. This is a powerful tool that enables you to build docker images without setting up or running docker on your workstation.
+First, run `pwd` to ensure you're in the root of the webapp folder, then use the [Azure CLI command `az acr build`](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az-acr-build) shown below (including the period at the end) to build the docker image. This is a powerful tool that enables you to build docker images and push to a repository in one step, all without setting up or running docker on your workstation.
+
+> ### **NOTE:**  Azure CLI in PowerShell
+> You can use Azure CLI commands in Bash or PowerShell sessions.
+> Sometimes Azure CLI is more terse than PowerShell, or new features may get support in Azure CLI before PowerShell, so use what gets the job done.
 
 ```ps
 az acr build --registry $myACR.Name --image mywebapp:v1 .
@@ -222,9 +228,9 @@ az acr build --registry $myACR.Name --image mywebapp:v1 .
 
 ![Result of az acr build](./media/step-5-az-acr-build.gif)
 
-> ### @ icon-warning 
-> **Warning:** If you get an error on this step, possibly your Azure Cloud Shell session was interrupted,
-> you can repeat the code from above to define variables including ```$myACR``` then try it again:
+> ### **WARNING:** Troubleshooting
+> If you get an error on this step, possibly your Azure Cloud Shell [session is interrupted](https://docs.microsoft.com/en-us/azure/cloud-shell/limitations#system-state-and-persistence),
+> you can repeat the code from above to define variables including those from the `. ./mySettings.ps1` command and ```$myACR``` then try it again:
 
 ```ps
 # If Cloud Shell Session was interrupted, run to redefine your variables
@@ -240,7 +246,7 @@ Gather information needed for deploying to **Azure Container Instances** using t
 First, get your container repository from your container registry (ACR):
 
 ```ps
-[array]$myRepositories = az acr repository list --name $myACR.Name | ConvertFrom-Json  # Is there a AZ PowerShell way to get this?
+[array]$myRepositories = az acr repository list --name $myACR.Name | ConvertFrom-Json
 $myRepository = $myRepositories[0]
 $myRepository
 ```
@@ -305,18 +311,23 @@ You are ready to deploy your new Azure container group by running the `New-AzCon
 $newACG = New-AzContainerGroup @ContainerGroupArguments
 ```
 
-After you review the Debug output, inspect your container group via the `$newACG` variable.
+After you confirm the execution and it completes, review the Debug output, then inspect your container group via the `$newACG` variable.
 
 ```ps
 $newACG | Get-Member
 $newACG | Select-Object *
 ```
 
+![Inspect ACG Object](./media/step-7-newacg.png)
+
 The `FQDN` property is the *Fully Qualified Domain Name* of your containerized application. Paste this into your favorite browser to see your new ASP.Net Core serverless containerized web application in action.
 
 ```ps
 Write-Output " Paste    $($newACG.FQDN)  into your favorite web browser"
 ```
+
+![Browse WebApp](./media/step-7-browser.png)
+
 
 After browsing the web application, review the log of your container instance.
 
@@ -330,6 +341,8 @@ The resources for this tutorial are very cost effective. Even so, it's a good id
 
 ```ps
 Remove-AzResourceGroup -ResourceGroupName $myRGName -Force
+cd ~/clouddrive
+rm ./docker-working/ -r
 ```
 
 ## Conclusion
