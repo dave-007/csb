@@ -45,7 +45,7 @@ Log into your Azure account at [portal.azure.com](https://portal.azure.com), the
 
 During the tutorial you may want to maximize the cloud shell window using the maximize button at the upper right. Click that button again to restore the cloud shell window back down to the original size.
 
-![Cloud Shell maximize/restore button](https://i.imgur.com/WRUhp4A.png)
+![Cloud Shell maximize/restore button](./media/step-1-maximize-button.png)
 
 Before continuing, note the prompt for Azure Cloud Shell, `PS Azure:\>` . You can imagine this as the root directory of a file server, but instead of files, it holds hierarchy of *all your Azure resources*. You can type `Get-ChildItem` to see your subscription(s), and use `Set-Location <TAB>` to begin navigating that hierarchy. *But that is the subject of another tutorial.*
 
@@ -80,7 +80,7 @@ $myRegistryName = 'daveregistry0123'        # GLOBALLY UNIQUE name for your cont
 $myDNSName      = 'daveawesomedockerapp0123'# GLOBALLY UNIQUE dns name, will be prepended to .azurecontainer.io
 ```
 
-![Cloud shell Code Editor mySettings](https://i.imgur.com/rOLc5ht.gif)
+![Cloud shell Code Editor mySettings](./media/step-1-edit-mysettings-file.gif)
 
 Now **[dot source](https://ss64.com/ps/source.html)** the script by running `. ./mySettings.ps1`. This will define the variables you'll need for this tutorial in this PowerShell session.
 
@@ -92,7 +92,7 @@ Now **[dot source](https://ss64.com/ps/source.html)** the script by running `. .
 > Once you resume your session, run `cd ~\clouddrive`, then  `. ./mySettings.ps1` again.
 > This will ensure you can continue the tutorial.
 > 
-> ![Restart Cloud Shell](https://i.imgur.com/DJYGRa9.png)
+> ![Restart Cloud Shell](./media/step-1-restart-cloud-shell-button.png)
 
 ## Step 2 - Deploy Azure Container Registry with an ARM Template
 
@@ -130,11 +130,11 @@ Paste the code block below to deploy.
 
 If all is well, the `ProvisioningState` value should display `Succeeded`
 
-![result of ARM template deployment](https://i.imgur.com/uQBQ0Gh.png)
+![result of ARM template deployment](./media/step-2-arm-result.png)
 
 > ### @ icon-info-circle Troubleshoot using Activity Log
 > **Note:** If at first you don't succeed, review the **Activity Log** 
-> under **Notifications** in the portal, see ![Troubleshooting ARM template deployments](https://i.imgur.com/7L7UTnJ.png)
+> under **Notifications** in the portal, see ![Troubleshooting ARM template deployments](./media/step-2-activity-log.png)
 
 Next you use the `Get-AZContainerRegistry` command to store your **Azure Container Registry** (ACR) information in a variable to refer to it later in the tutorial.
 
@@ -143,7 +143,7 @@ $myACR = Get-AzContainerRegistry -ResourceGroupName $myRGName
 $myACR
 ```
 
-![Result of `Get-AzContainerRegistry`](https://i.imgur.com/dwGlE3L.png)
+![Result of `Get-AzContainerRegistry`](./media/step-2-get-az-containerregistry.png)
 
 ## Step 3 - Create a .Net Core Web Application
 
@@ -161,7 +161,7 @@ mkdir docker-working
 cd docker-working
 ```
 
-![docker working directory](https://i.imgur.com/hxjpZwo.png)
+![docker working directory](./media/step-3-docker-working-folder.png)
 
 Now you will build a new .Net Core web application using the `dotnet` command line tool.
 
@@ -178,7 +178,7 @@ cd mywebapp
 pwd
 ```
 
-![Results of dotnet new](https://i.imgur.com/XYy4knj.png)
+![Results of dotnet new](./media/step-3-dotnet-new.png)
 
 ## Step 4 - Create a Docker File
 
@@ -206,7 +206,7 @@ COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "mywebapp.dll"]
 ```
 
-![Using Code Editor](https://i.imgur.com/qVYftbJ.gif)
+![Using Code Editor](./media/step-4-code-dockerfile-paste.gif)
 
 > ### @ icon-info-circle Docker Syntax
 > **Note:** The dockerfile commands describe how to build and run the .Net Core web application created in Step 3 as a container.
@@ -220,7 +220,7 @@ First, run `pwd` to ensure you're in the root of the webapp folder, then use the
 az acr build --registry $myACR.Name --image mywebapp:v1 .
 ```
 
-![Result of az acr build](https://i.imgur.com/8aQNgsD.gif)
+![Result of az acr build](./media/step-5-az-acr-build.gif)
 
 > ### @ icon-warning 
 > **Warning:** If you get an error on this step, possibly your Azure Cloud Shell session was interrupted,
