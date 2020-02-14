@@ -34,7 +34,7 @@ This tutorial introduces you to these tools very rapidly, and toward a very usef
 
 ## Prerequisites
 
-in order to follow this guide, you will need:
+In order to follow this guide, you will need:
 
 - An active Azure subscription
 
@@ -48,7 +48,7 @@ During the tutorial you may want to maximize the cloud shell window using the ma
 
 Before continuing, note the prompt for Azure Cloud Shell, `PS Azure:\>` , indicates your location as `Azure:\`. You can imagine this as the root directory of a file server, but instead of files, it holds hierarchy of *all your Azure resources*. You can type `Get-ChildItem` to see your subscription(s), and use `Set-Location <TAB>` to begin navigating that hierarchy. *But that is the subject of another tutorial.*
 
-If you try to to the code editor to save files in this starting location of `Azure:\`, you will get an error. Instead, type `cd ~\clouddrive` (that starts with the tilde character (~) at the top right of your keyboard, a symbol for your home directory) to navigate to your clouddrive, and type `pwd` (an alias of `Get-ChildItem`) to see your current location in the drive.
+If you try to use the code editor to save files in this starting location of `Azure:\`, you will get an error. Instead, type `cd ~\clouddrive` (that starts with the tilde character (~) at the top right of your keyboard, a symbol for your home directory) to navigate to your clouddrive, and type `pwd` (an alias of `Get-ChildItem`) to see your current location in the drive.
 
 ```ps
 cd ~\clouddrive
@@ -114,7 +114,7 @@ Test-AzContainerRegistryNameAvailability -Name $myRegistryName
 > history to display the `Test-AzContainerRegistryNameAvailability` command, then press **enter** to
 > run it again.
 
-With your registry name verified as unique, you deploy a Quickstart **[Azure Resource Manager Template (ARM Template)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview)** from Microsoft's GitHub repository to create your **Azure Container Registry**. This ARM Template is a small JSON file that describes the resource to deploy, and you can [view the JSON for the ARM Template you will use here.](https://raw.githubusercontent.com/microsoft/devops-project-samples/master/dotnet/aspnetcore/kubernetes/ArmTemplates/containerRegistry-template.json).  
+With your registry name verified as unique, you deploy a Quickstart **[Azure Resource Manager Template (ARM Template)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview)** from Microsoft's GitHub repository to create your **Azure Container Registry**. This ARM Template is a small JSON file that describes the resource to deploy, and you can [view the JSON for the ARM Template you will use here](https://raw.githubusercontent.com/microsoft/devops-project-samples/master/dotnet/aspnetcore/kubernetes/ArmTemplates/containerRegistry-template.json).  
 
 Review and run the code below, which will set`$containerRegistryTemplateUrl` to the URL for this ARM Template that will define your **Azure Container Registry** resource. Then you define `$containerRegistryParams` as a [hash table](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-7) to pass the parameters the template needs. Then you execute `New-AZResourceGroupDeployment` to deploy the ARM template.
 
