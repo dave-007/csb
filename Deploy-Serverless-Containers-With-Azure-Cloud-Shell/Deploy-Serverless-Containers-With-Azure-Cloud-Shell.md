@@ -26,7 +26,7 @@ This tutorial introduces you to these tools very rapidly, and toward a very usef
 
 - Use the **[Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor)** to create a PowerShell script that sets variables for the tutorial.
 - Deploy infrastructure as code using a Quickstart **[ARM Template](https://azure.microsoft.com/en-us/resources/templates/)**.
-- Create an **ASP.Net Core** application with the [**.Net Core CLI**](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x)** with no development environment setup.
+- Create an **ASP.Net Core** application with the [**.Net Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x)** with no development environment setup.
 - Use the **[Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor)** to create a docker file.
 - Use **[Azure CLI](https://github.com/Azure/azure-cli)** *az acr build* command to build and push a docker image to your **[Azure Container Registry (ACR)](https://azure.microsoft.com/en-us/services/container-registry/)** with no tooling setup.
 - Deploy a Docker image as a serverless container to **[Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-overview)** with no infrastructure setup.
@@ -66,7 +66,7 @@ code mySettings.ps1
 Use the editor to paste in the content of the powershell script below **using *Control-V* instead of right-click**. Customize the values, then click the ellipsis **(...)** in the upper right corner of the cloud shell editor to save, then close editor.
 
 > ### **NOTE:** Globally Unique Names
-> Naming things in Azure can be tricky, with different naming rules for different types of resources. 
+> Naming things in Azure can be tricky, with different naming rules for different types of resources.
 > For simplicity, *stick with lowercase letters and numbers.*
 > Certain values must be GLOBALLY UNIQUE, like registry names and domain names,
 > so something like 'DaveApp' doesn't usually work. It is a good idea to
@@ -85,18 +85,17 @@ Now **[dot source](https://ss64.com/ps/source.html)** the script by running `. .
 
 ![Cloud shell Code Editor mySettings](./media/step-1-edit-mysettings-file.gif)
 
-> ### **WARNING:** If Cloud Shell session is interrupted, restart the session and re-run this script line.
+> ### **WARNING:** If Cloud Shell session is interrupted, restart the session and re-run this script line
 > The success of the tutorial depends on the variables above. If for some reason your
 > **Azure Cloud Shell** [session is interrupted](https://docs.microsoft.com/en-us/azure/cloud-shell/limitations#system-state-and-persistence), (perhaps with an **access token expiry error**, or **unauthorized error**),
-> You may need to restart your session with the **Restart Cloud Shell** button at top of shell window.
-> Once you resume your session, remember to run `cd ~\clouddrive` since you can't save files in the `Azure:\` location, then  `. ./mySettings.ps1` again.
+> You **may** need to restart your session with the **Restart Cloud Shell** button at top of shell window.
+> Once you resume your session, remember to run `cd ~\clouddrive` since you can't save files in the `Azure:\` location, then run `. ./mySettings.ps1` again.
 > This will ensure you can continue the tutorial.
-> 
 > ![Restart Cloud Shell](./media/step-1-restart-cloud-shell-button.png)
 
 ## Step 2 - Deploy Azure Container Registry with an ARM Template
 
-Next, you will use `New-AzResourceGroup` to create a resource group for this demo.
+Next, you use `New-AzResourceGroup` to create a resource group for this demo.
 
 ```ps
 New-AzResourceGroup -Name $myRGName -Location $myLocationName
@@ -109,16 +108,15 @@ Test-AzContainerRegistryNameAvailability -Name $myRegistryName
 ```
 
 > ### **WARNING:** Ensure unique name for your Azure Container Registry
-> If _NameAvailable_ is not _True_ in the result, redefine your registry name by running the command
-> `$myRegistryName = 'mynewregname001'` , then press **UP-Arrow** twice, scrolling through command
-> history to display the `Test-AzContainerRegistryNameAvailability` command, then press **enter** to
+> If `NameAvailable` is not `True` in the result, redefine your registry name by running the command
+> `$myRegistryName = 'mynewregname001'` and pressing **enter**. Then press **UP-Arrow** twice, scrolling through > command history to display the `Test-AzContainerRegistryNameAvailability` command, then press **enter** to
 > run it again.
 
 With your registry name verified as unique, you deploy a Quickstart **[Azure Resource Manager Template (ARM Template)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview)** from Microsoft's GitHub repository to create your **Azure Container Registry**. This ARM Template is a small JSON file that describes the resource to deploy, and you can [view the JSON for the ARM Template you will use here](https://raw.githubusercontent.com/microsoft/devops-project-samples/master/dotnet/aspnetcore/kubernetes/ArmTemplates/containerRegistry-template.json).  
 
 Review and run the code below, which will set`$containerRegistryTemplateUrl` to the URL for this ARM Template that will define your **Azure Container Registry** resource. Then you define `$containerRegistryParams` as a [hash table](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables?view=powershell-7) to pass the parameters the template needs. Then you execute `New-AZResourceGroupDeployment` to deploy the ARM template.
 
-Paste the code block below to deploy.
+Paste the code block below into the **Azure Cloud Shell** to deploy.
 
 ```ps
     $containerRegistryTemplateUrl = 'https://raw.githubusercontent.com/microsoft/devops-project-samples/master/dotnet/aspnetcore/kubernetes/ArmTemplates/containerRegistry-template.json'
@@ -135,8 +133,9 @@ If all is well, the `ProvisioningState` value should display `Succeeded`
 ![result of ARM template deployment](./media/step-2-arm-result.png)
 
 > ### **NOTE:** Troubleshoot using Activity Log
-> If at first you don't succeed, review the **Activity Log** 
-> under **Notifications** in the portal, see ![Troubleshooting ARM template deployments](./media/step-2-activity-log.png)
+> If at first you don't succeed, review the **Activity Log**
+> under **Notifications** in the portal.
+> ![Troubleshooting ARM template deployments](./media/step-2-activity-log.png)
 
 Next you use the `Get-AZContainerRegistry` command to store your **Azure Container Registry** (ACR) information in a variable to refer to it later in the tutorial.
 
@@ -167,11 +166,11 @@ cd docker-working
 
 Now you will build a new .Net Core web application using the `dotnet` command line tool.
 
-> ### **NOTE:** Alternately build an existing Asp.Net Core project!
-> Alternately, instead of creating a new application, you could use `git clone` 
+> ### **NOTE:** Alternately build an existing Asp.Net Core project
+> Alternately, instead of creating a new application, you could use `git clone`
 > to work with an existing application in GitHub. *This is another topic for a future tutorial.*
 
-Paste the next 3 lines to create and compile your new web app, then use `ls` to inspect the contents of the published folder.
+Paste the next 3 lines to create your new web app and its dependencies, then use `cd` to the new directory. You can run `ls` to inspect the contents of the published folder, or `gci -r`, and alias to `Get-ChildItem -Recurse` and see the entire contents of the application folder hierarchy.
 
 ```ps
 dotnet new webapp -o mywebapp
@@ -184,13 +183,13 @@ pwd
 
 ## Step 4 - Create a Docker File
 
-You can type `cls` any time to clear the screen, then type `code DOCKERFILE` to launch the cloud shell editor. Use the editor to paste in the content of the dockerfile below.
+You can type `cls` any time to clear the screen, then type `code DOCKERFILE` from within your new webapp folder to launch the cloud shell editor and create a new file named DOCKERFILE.
 
 ```ps
 code DOCKERFILE
 ```
 
- Paste the following code block to the DOCKERFILE **using *Control-V* instead of right-click**, then click the ellipsis **(...)** in the upper right corner of the cloud shell editor to save, then close editor.
+Paste the following code block into the DOCKERFILE **using *Shift-Insert* or *Command-V* (macOS) instead of right-click**, then click the ellipsis **(...)** in the upper right corner of the cloud shell editor to save, then close editor.
 
 ```ps
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
@@ -294,7 +293,7 @@ $ContainerGroupArguments = @{
     Port                = 80                    #optional
     RegistryCredential  = $PSCred               #required if this is NOT a public docker registry
     IdentityType        = 'SystemAssigned'      #optional, but useful for a future tutorial
-    Tag                 = $tags                 #optional uses hashtable defined above
+    Tag                 = $tags                 #optional uses hash table defined above
     Debug               = $true                 #optional but very interesting to see the debug output
     }
 
@@ -329,7 +328,6 @@ Write-Output " Paste    $($newACG.FQDN)  into your favorite web browser"
 *Browse your newly deployed Azure serverless Docker containerized ASP.Net Core web application!*
 
 ![Browse WebApp](./media/step-7-browser.png)
-
 
 After browsing the web application, review the log of your container instance.
 
