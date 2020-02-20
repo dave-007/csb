@@ -16,7 +16,7 @@
 
 ## Introduction
 
-Keeping up with cloud technology is a continual challenge that requires continuous learning by cloud builders. As we seek to stay current with the evolution of new cloud technologies, we must choose which tools to invest in and which to ignore, choosing the most powerful and flexible tools available to maximize our effectiveness and time investment.
+Keeping up with cloud technology is a continual challenge that requires continuous learning by cloud builders. As we seek to stay current with the evolution of new cloud technologies, we must decide which tools to invest our time in, choosing the most powerful and flexible tools available to maximize our effectiveness and time investment.
 
 **Azure Cloud Shell** is one such powerful tool. Learn Azure Cloud Shell and you unlock the full capability of the Azure cloud, with tools built in including Code Editor, Azure PowerShell and CLI, .Net Core and Docker.
 
@@ -91,6 +91,7 @@ Now **[dot source](https://ss64.com/ps/source.html)** the script by running `. .
 > You **may** need to restart your session with the **Restart Cloud Shell** button at top of shell window.
 > Once you resume your session, remember to run `cd ~\clouddrive` since you can't save files in the `Azure:\` location, then run `. ./mySettings.ps1` again.
 > This will ensure you can continue the tutorial.
+> 
 > ![Restart Cloud Shell](./media/step-1-restart-cloud-shell-button.png)
 
 ## Step 2 - Deploy Azure Container Registry with an ARM Template
