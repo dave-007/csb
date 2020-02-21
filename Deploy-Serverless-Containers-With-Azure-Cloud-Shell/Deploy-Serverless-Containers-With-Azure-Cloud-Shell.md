@@ -1,6 +1,6 @@
-# How to Deploy Serverless ASP.NET Containers to Azure Container Instances From Azure Cloud Shell
+# Deploy a Serverless ASP.NET App to Azure Container Instances from Cloud Shell
 
-- [How to Deploy Serverless ASP.NET Containers to Azure Container Instances From Azure Cloud Shell](#how-to-deploy-serverless-aspnet-containers-to-azure-container-instances-from-azure-cloud-shell)
+- [Deploy a Serverless ASP.NET App to Azure Container Instances from Cloud Shell](#deploy-a-serverless-aspnet-app-to-azure-container-instances-from-cloud-shell)
   - [Introduction](#introduction)
   - [What You Will Learn](#what-you-will-learn)
   - [Prerequisites](#prerequisites)
