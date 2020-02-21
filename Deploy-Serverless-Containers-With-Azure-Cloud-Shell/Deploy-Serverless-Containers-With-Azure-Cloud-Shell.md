@@ -1,12 +1,12 @@
-# How to Build and Deploy Serverless ASP.Net Core Docker Application to Azure Container Instances Entirely Within Azure Cloud Shell
+# How to Deploy Serverless ASP.NET Containers to Azure Container Instances From Azure Cloud Shell
 
-- [How to use Build and Deploy Serverless ASP.Net Core Docker Application to Azure Container Instances Entirely Within Azure Cloud Shell](#how-to-use-build-and-deploy-serverless-aspnet-core-docker-application-to-azure-container-instances-entirely-within-azure-cloud-shell)
+- [How to Deploy Serverless ASP.NET Containers to Azure Container Instances From Azure Cloud Shell](#how-to-deploy-serverless-aspnet-containers-to-azure-container-instances-from-azure-cloud-shell)
   - [Introduction](#introduction)
   - [What You Will Learn](#what-you-will-learn)
   - [Prerequisites](#prerequisites)
   - [Step 1 - Get Into Azure Cloud Shell & Editor](#step-1---get-into-azure-cloud-shell--editor)
   - [Step 2 - Deploy Azure Container Registry with an ARM Template](#step-2---deploy-azure-container-registry-with-an-arm-template)
-  - [Step 3 - Create a .Net Core Web Application](#step-3---create-a-net-core-web-application)
+  - [Step 3 - Create a .NET Core Web Application](#step-3---create-a-net-core-web-application)
   - [Step 4 - Create a Docker File](#step-4---create-a-docker-file)
   - [Step 5 - Build and Push a Docker Image to Azure Container Registry](#step-5---build-and-push-a-docker-image-to-azure-container-registry)
   - [Step 6 - Prepare to Deploy Your Docker Image as a Serverless Container](#step-6---prepare-to-deploy-your-docker-image-as-a-serverless-container)
@@ -18,15 +18,15 @@
 
 Keeping up with cloud technology is a continual challenge that requires continuous learning by cloud builders. As we seek to stay current with the evolution of new cloud technologies, we must decide which tools to invest our time in, choosing the most powerful and flexible tools available to maximize our effectiveness and time investment.
 
-**Azure Cloud Shell** is one such powerful tool. Learn Azure Cloud Shell and you unlock the full capability of the Azure cloud, with tools built in including Code Editor, Azure PowerShell and CLI, .Net Core and Docker.
+**Azure Cloud Shell** is one such powerful tool. Learn Azure Cloud Shell and you unlock the full capability of the Azure cloud, with tools built in including Code Editor, Azure PowerShell and CLI, .NET Core and Docker.
 
-This tutorial introduces you to these tools very rapidly, and toward a very useful goal. You will create, build and publish a .Net Core application, inside a Docker container, to Azure in a Serverless deployment model.
+This tutorial introduces you to these tools very rapidly, and toward a very useful goal. You will create, build and publish a .NET Core application, inside a Docker container, to Azure in a Serverless deployment model.
 
 ## What You Will Learn
 
 - Use the **[Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor)** to create a PowerShell script that sets variables for the tutorial.
 - Deploy infrastructure as code using a Quickstart **[ARM Template](https://azure.microsoft.com/en-us/resources/templates/)**.
-- Create an **ASP.Net Core** application with the [**.Net Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x)** with no development environment setup.
+- Create an **ASP.NET Core** application with the [**.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x)** with no development environment setup.
 - Use the **[Azure Cloud Shell Editor](https://docs.microsoft.com/en-us/azure/cloud-shell/using-cloud-shell-editor)** to create a docker file.
 - Use **[Azure CLI](https://github.com/Azure/azure-cli)** *az acr build* command to build and push a docker image to your **[Azure Container Registry (ACR)](https://azure.microsoft.com/en-us/services/container-registry/)** with no tooling setup.
 - Deploy a Docker image as a serverless container to **[Azure Container Instances](https://docs.microsoft.com/en-us/azure/container-instances/container-instances-overview)** with no infrastructure setup.
@@ -147,7 +147,7 @@ $myACR
 
 ![Result of `Get-AzContainerRegistry`](./media/step-2-get-az-containerregistry.png)
 
-## Step 3 - Create a .Net Core Web Application
+## Step 3 - Create a .NET Core Web Application
 
 Begin from your clouddrive folder. Type `pwd` to verify your current location.
 
@@ -165,9 +165,9 @@ cd docker-working
 
 ![docker working directory](./media/step-3-docker-working-folder.png)
 
-Now you will build a new .Net Core web application using the `dotnet` command line tool.
+Now you will build a new .NET Core web application using the `dotnet` command line tool.
 
-> ### **NOTE:** Alternately build an existing Asp.Net Core project
+> ### **NOTE:** Alternately build an existing Asp.NET Core project
 > Alternately, instead of creating a new application, you could use `git clone`
 > to work with an existing application in GitHub. *This is another topic for a future tutorial.*
 
@@ -211,7 +211,7 @@ ENTRYPOINT ["dotnet", "mywebapp.dll"]
 ![Using Code Editor](./media/step-4-code-dockerfile-paste.gif)
 
 > ### **NOTE:** Docker Syntax
-> The dockerfile commands describe how to build and run the .Net Core web application created in Step 3 as a container.
+> The dockerfile commands describe how to build and run the .NET Core web application created in Step 3 as a container.
 > *Docker syntax is another topic for a future tutorial.*
 
 ## Step 5 - Build and Push a Docker Image to Azure Container Registry
@@ -320,13 +320,13 @@ $newACG | Select-Object *
 
 ![Inspect ACG Object](./media/step-7-newacg.png)
 
-The `FQDN` property is the *Fully Qualified Domain Name* of your containerized application. Paste this into your favorite browser to see your new ASP.Net Core serverless containerized web application in action.
+The `FQDN` property is the *Fully Qualified Domain Name* of your containerized application. Paste this into your favorite browser to see your new ASP.NET Core serverless containerized web application in action.
 
 ```ps
 Write-Output " Paste    $($newACG.FQDN)  into your favorite web browser"
 ```
 
-*Browse your newly deployed Azure serverless Docker containerized ASP.Net Core web application!*
+*Browse your newly deployed Azure serverless Docker containerized ASP.NET Core web application!*
 
 ![Browse WebApp](./media/step-7-browser.png)
 
@@ -351,11 +351,11 @@ rm ./docker-working/ -r
 You have used **Azure Cloud Shell** on a whirlwind tour of powerful tools and features it contains.
 You have:
 
-- Created an **ASP.Net Core** web application
+- Created an **ASP.NET Core** web application
 - Built a **Docker** container
 - Pushed that container to a repository image in your private **Azure Container Registry**
 - Deployed that image to **Azure Container Instances**
 
-Along the way you explored features of **Azure Cloud Shell** including **Azure PowerShell** and **Azure CLI**, **Azure Resource Manager** templates, the **Cloud Shell Code Editor**, and the **.Net Core CLI.**
+Along the way you explored features of **Azure Cloud Shell** including **Azure PowerShell** and **Azure CLI**, **Azure Resource Manager** templates, the **Cloud Shell Code Editor**, and the **.NET Core CLI.**
 
 I hope this tutorial encourages you to explore Azure with the Cloud Shell, and makes you a more effective cloud builder!
