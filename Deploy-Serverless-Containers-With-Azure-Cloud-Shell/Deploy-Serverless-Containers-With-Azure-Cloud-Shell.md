@@ -1,4 +1,4 @@
-# How to use Build and Deploy Serverless ASP.Net Core Docker Application to Azure Container Instances Entirely Within Azure Cloud Shell
+# How to Build and Deploy Serverless ASP.Net Core Docker Application to Azure Container Instances Entirely Within Azure Cloud Shell
 
 - [How to use Build and Deploy Serverless ASP.Net Core Docker Application to Azure Container Instances Entirely Within Azure Cloud Shell](#how-to-use-build-and-deploy-serverless-aspnet-core-docker-application-to-azure-container-instances-entirely-within-azure-cloud-shell)
   - [Introduction](#introduction)
