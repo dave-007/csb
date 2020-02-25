@@ -171,7 +171,7 @@ Now you will build a new .NET Core web application using the `dotnet` command li
 > Alternately, instead of creating a new application, you could use `git clone`
 > to work with an existing application in GitHub. *This is another topic for a future tutorial.*
 
-Paste the next 3 lines to create your new web app and its dependencies, then use `cd` to the new directory. You can run `ls` to inspect the contents of the published folder, or `gci -r`, and alias to `Get-ChildItem -Recurse` and see the entire contents of the application folder hierarchy.
+Paste the next 3 lines to create your new web app and its dependencies, then use `cd` to the new directory. You can run `ls` to inspect the contents of the published folder, or `gci -r`, an alias to `Get-ChildItem -Recurse` and see the entire contents of the application folder hierarchy.
 
 ```ps
 dotnet new webapp -o mywebapp
